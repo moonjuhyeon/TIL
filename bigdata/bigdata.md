@@ -1,0 +1,21 @@
+- 람다 아키텍쳐
+    - input -> kafka -> spark streaming -> viewfs -> hdfs -> spark streaming -> output
+    - https://engineering.linecorp.com/ko/blog/bigdb-an-ad-data-pipeline-for-line/
+    - https://engineering.linecorp.com/ko/blog/detail/60/
+    - https://ok-data.github.io/2020/06/20/Lambda_Arch/
+- netflix genie (hadoop genie)
+    - https://netflixtechblog.com/tagged/hadoop
+    - https://netflix.github.io/genie/docs/3.0.0/reference/
+    - https://aws.amazon.com/ko/blogs/korea/orchestrate-big-data-workflows-with-apache-airflow-genie-and-amazon-emr-part-1/  
+    - Genie는 Apache Hadoop MapReduce 또는 Apache Spark와 같은 빅 데이터 애플리케이션에서 작업을 제출할 수 있게 해 주는 REST API를 제공합니다. Genie는 클러스터와 해당 클러스터에서 실행되는 명령 및 애플리케이션의 메타데이터를 관리합니다.
+- apache airflow
+- data warehouse vs data lake
+    - https://loustler.io/data_eng/what-is-data-lake/
+    - https://www.guru99.com/data-lake-architecture.html
+    - https://www.samsungsds.com/kr/insights/1232760_4627.html
+    - 기존의 DW는 일종의 스키마와 같은 형태로 정형화된 데이터를 가지고 있다면,
+      Data Lake는 비정형화 데이터 즉, 아무런 정해진 형태가 없는 데이터(Raw data)를 가지고 있다.
+- hadoop + mongodb
+    - https://d2.naver.com/helloworld/1016
+    - hadoop에 데이터를 적재 -> 분석을 통해 나온 집계 또는 통계 데이터를 mongodb에 저장
+      
