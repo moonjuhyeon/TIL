@@ -3,7 +3,7 @@
 * REpresentational State Transfer
 * 분산 하이퍼미디어시스템(ex, WEB)을 위한 아키텍처 스타일
 ## API
-* Aplication Programming Interface
+* Application Programming Interface
 ## REST를 구성하는 아키텍처 스타일
     1. Client-Server
     2. Statelss
