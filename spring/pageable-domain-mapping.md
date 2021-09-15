@@ -1,3 +1,5 @@
+# Pageble Domain Mapping
+
 > 기존 `Pageable` 클래스의 `Sort`는 `Entity.Column` 으로 정렬 조건을 받아옵니다.
 그러나, 이러한 방식은 `Entity`의 노출이 불가피합니다.
 따라서 `Entity`의 노출을 방지하기 위해 `SortStrategy`를 구축하여 `Column`으로 정렬 조건을 Mapping되도록 합니다.
