@@ -14,4 +14,5 @@
   - .andDo(print()) 진행상황 콘솔로그 출력
   - .andExpect(status().{httpResultCode}) 코드 검증
   - .andExpect(jsonPath("value")).isExist() "value" 값 검증
-   
+- Repository 작성
+  - Mockito.when()으로 repository의 return 값 주입
