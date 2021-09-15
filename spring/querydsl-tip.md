@@ -272,7 +272,7 @@ productContracts = queryFactory.selectFrom(productContract).distinct()
 - `ProductContract` 내부의 `Entity`를 통해 `ContractCoverage` `Entity`와 InnerJoin
 - 1건 조회를 위한 엄청난 양의 쿼리 발생
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f2c5794f-5000-45cd-a92f-68a57f1fdcc9/_2021-04-15__10.05.11.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f2c5794f-5000-45cd-a92f-68a57f1fdcc9/_2021-04-15__10.05.11.png)
+<img src="./assets/querydsl_1.png">
 
 - `Dto` 조회로 변환
 
@@ -305,7 +305,7 @@ queryFactory.select(
 - `Projections` `Class`를 사용하여 필요한 컬럼만 조회
 - `Product`, `Company` `Entity`를 이용한 직접 JOIN
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fa3da36a-1982-4ae1-8369-b8f0dffec7ee/_2021-04-15__10.09.31.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fa3da36a-1982-4ae1-8369-b8f0dffec7ee/_2021-04-15__10.09.31.png)
+<img src="./assets/querydsl_2.png">
 
 - 1건 쿼리 발생
 
