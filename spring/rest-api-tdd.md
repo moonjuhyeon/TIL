@@ -33,3 +33,7 @@
   - Errors 객체 -> json 형식으로 변환
   - Controller build(errors) -> body(errors)로 json 형식의 errors 반환
   - $[0].objectName 과 같은 json 배열형태의 error 값 테스트 진행
+- 비즈니스 로직 작성 (Entity)
+  - Entity의 비즈니스로직을 검증하는 유닛테스트를 BDD 형식으로 진행
+  - 각 테스트를 통과할 수 있는 비즈니스 로직 작성
+  - @ParameterizedTest로 테스트 리팩토링 수행
