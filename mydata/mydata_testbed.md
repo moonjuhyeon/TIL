@@ -34,3 +34,21 @@
 
 - [https://developers.mydatakorea.org/mdtb/tbd/ats/bas/FSTB010101?preURI=%2Fmdtb%2Ftbd%2Fats%2Fbas%2FFSTB010101&menuCode=FSI000%2CFSI028%2CFSI029%2CFSI031](https://developers.mydatakorea.org/mdtb/tbd/ats/bas/FSTB010101?preURI=%2Fmdtb%2Ftbd%2Fats%2Fbas%2FFSTB010101&menuCode=FSI000%2CFSI028%2CFSI029%2CFSI031)
 - API URL : [https://developers.mydatakorea.org:9443](https://developers.mydatakorea.org:9443/)
+
+### 단위테스트 진행 순서
+
+1. 개별인증 API
+    1. 인가코드 발급 요청
+    2. 접근토큰 발급 요청 → Access Token 복사
+    3. Access Token을 Authorization에 붙여넣기
+2. 각종 금융업권 API
+    1. 해당 API의 테스트데이터 업로드 ([https://developers.mydatakorea.org/mdtb/myp/tem/ddm/FMTM0201L](https://developers.mydatakorea.org/mdtb/myp/tem/ddm/FMTM0201L))
+
+        ex) 업로드한 테스트데이터 목록
+        <img src="./assets/mydata_testbed_2.png">
+        
+
+    2. 테스트데이터가 존재하는 API 요청/응답 확인
+
+        ex) 업로드한 테스트데이터 응답 확인
+        <img src="./assets/mydata_testbed_3.png">
