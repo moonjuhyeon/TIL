@@ -37,3 +37,7 @@
   - Entity의 비즈니스로직을 검증하는 유닛테스트를 BDD 형식으로 진행
   - 각 테스트를 통과할 수 있는 비즈니스 로직 작성
   - @ParameterizedTest로 테스트 리팩토링 수행
+- Spring hateoas 적용
+  - then 응답 검증에 hateoas에 해당하는 link 값 검증을 작성
+  - controller에 EntityModel을 이용하여 검증에 필요한 link를 추가하여 반환
+  - EntityModel로 link를 추가하여 반환할 시, 응답 body에 _links 안에 값이 존재
