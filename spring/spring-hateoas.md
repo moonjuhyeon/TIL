@@ -23,3 +23,20 @@
      - self (view)
      - update (만든 사람은 수정이 가능함)
      - events (목록조회로 가는 링크)
+ - EntityModel
+   - 링크를 추가하여 HATEOAS 형태의 응답 모델을 반환해 줌
+   - Controller 코드 
+    ``` java
+        Event newEvent = eventRepository.save(event);
+        LinkBuilder linkBuilder = linkTo(EventController.class).slash(newEvent.getId());
+        URI createdUri = linkBuilder.toUri();
+        EntityModel<Event> eventEntityModel = new EntityModel<>(newEvent);
+        eventEntityModel.add(linkTo(EventController.class).withRel("query-events"));
+        eventEntityModel.add(linkBuilder.withSelfRel());
+        eventEntityModel.add(linkBuilder.withRel("update-event"));
+        return ResponseEntity.created(createdUri).body(eventEntityModel);
+    ``` 
+    - 응답 json
+      - "_links" 아래 값으로 링크가 생성 됨
+
+      <img src="./assets/spring-hateoas_1.png">
