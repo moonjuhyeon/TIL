@@ -50,11 +50,11 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
     private final JPAQueryFactory queryFactory;
     
     @Override
-    public Page<Book> findBooks(Stirng name, String author, Pageable pageable) {
+    public Page<Book> findBooks(Stirng name, String author, Pageable pageable){
         QueryResults<Book> book = queryFactory
                 .selectFrom(review)
                 .where(
-								    eqName(name),
+					eqName(name),
                     eqAuthor(author)
                 )
                 .orderBy(Book.updatedAt.desc(), Book.idx.desc())
@@ -203,12 +203,12 @@ public class BookQueryRepository {
     @Override
     public Optional<BookDto> findBookDtoByIdx(Long idx) {
         return Optional.ofNullable(queryFactory
-                .select(Projections.fields(BookDto.class,
-			        book.name,
-                    Expressions.asNumber(idx)
-                        .as("idx"),
-                    lender.idx
-                        .as("lenderIdx")// BookDto 매핑 필드와 이름 매칭
+                .select(
+                    Projections.fields(BookDto.class,
+			            book.name,
+                        Expressions.asNumber(idx).as("idx"),
+                        lender.idx.as("lenderIdx")
+                        // BookDto 매핑 필드와 이름 매칭
                 ))
                 .from(book)
                 .innerJoin(book.lender, lender)
@@ -242,16 +242,15 @@ public class BookQueryRepository {
     @Override
     public Optional<BookDto> findBookDtoByIdx(Long idx) {
         return Optional.ofNullable(queryFactory
-                .select(Projections.fields(BookDto.class,
-				              book.name,
-			                Expressions.asNumber(idx).as("idx"),
-											// BookDto 매핑 필드와 이름 매칭
-											lender.idx.as("lenderIdx")		
+                .select(
+                    Projections.fields(BookDto.class,
+				        book.name,
+			            Expressions.asNumber(idx).as("idx"),
+                        // BookDto 매핑 필드와 이름 매칭
+						lender.idx.as("lenderIdx")		
                 ))
                 .from(book)
-                .where(
-	                    eqIdx(idx)
-                )
+                .where(eqIdx(idx))
                 .fetchOne());
     }
 }
