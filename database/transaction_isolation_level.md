@@ -129,7 +129,9 @@
   |`*SERIALIZABLE READ*`|불가능|불가능|불가능|
 
 <br/>
+
 -------
+<br/>
 
 > ## 출처 <br/>
 > https://velog.io/@lsb156/Transaction-Isolation-Level#read-committed
