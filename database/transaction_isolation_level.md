@@ -91,3 +91,45 @@
   - `*SERIALIZABLE*` 은 데이터를 안전하게 보호할 수 있지만, 굉장히 쉽게 *`DEADLOCK`* 에 걸릴 수 있음
   - `*SERIALIZABLE*` 은 *`DEADLOCK`* 이 걸리지 않도록 신중하게 사용해야 함
   
+  > **S Lock** : ( *Shared Lock*, 공유 잠금 ) <br/>
+  > 읽기 잠금(*Read Lock*)이라고도 불린다. <br/>
+  > 어떤 트랜잭션에서 데이터를 읽고자 할 때 다른 *Shared Lock*은 허용이 되지만, *Exclusive Lock*은 불가하다. <br/>
+  > 쉽게 말해서 리소스를 다른 사용자가 동시에 읽을 수 있게 하되, 변경은 불가하게 만드는 것이다. <br/>
+  >
+  > -> 어떤 자원에 *Shared Lock* 이 동시에 여러 개 적용될 수 있다. <br/>
+  > -> 어떤 자원에 *SHared LOck* 이 하나라도 걸려있으면 Exclusive Lock을 걸 수 없다. <br/>
+  > </br>
+  > **X Lock** : ( *Exclusive Lock*, 배타적 잠금 ) <br/>
+  > 쓰기 잠금(*Write Lock*)이라고도 불린다. <br/>
+  > 어떤 트랜잭션에서 데이터를 쓰거나 변경할 때  해당 트랜잭션이 완료될 때 까지 해당 테이블 혹은 레코드(row)를 다른 트랜잭션에서 읽거나 쓰지 못하게 하기 위해 *Exclusive Lock* 을 걸고 트랜잭션을 진행시키는 것이다. <br/>
+  > -> *Exclusive Lock* 에 걸리면 *Shared Lock* 을 걸 수 없다. <br/>
+  > -> *Exclusive Lock* 에 걸린 테이블, 레코드 등의 자원에 대해 다른 트랜잭션이 *Exclusive Lock* 을 걸 수 없다.
+  
+  <br/>
+
+  ---
+
+  ## CRUD에 적합한 ISOLATION LEVEL
+  - **`READ`** 는 `*REPEATABLE READ*`
+  - **`CREATE`, `UPDATE`, `DELETE`** 는 `*SERIALIZABLE*`
+
+ > **참고사항** <br/>
+ > **`UPDATE, DELETE`** 는 **Consistant Read** 의 적용을 받지 않기 때문에 <br/>
+ > 같은 `WHERE` 조건을 사용하더라도, **내가 수정하려고** `SELECT` **쿼리로 읽어온 row와, 해당 row를 수정하기 위해 **`UPDATE`** 쿼리를 날렸을 때 실제로 수정되는 row가 다를 수 있습니다.** <br/>
+ 
+ <br/>
+
+- 표) 트랜잭션 격리성 수준과 비일관성 현상
+
+  |LEVEL|Diry Read|Non-Repeatable Read|Phantom Read|
+  |--|--|--|--| 
+  |`*READ UNCOMMITTED*`|가능|가능|가능|
+  |`*READ COMMITTED*`|불가능|가능|가능|
+  |`*REPEATABLE READ*`|불가능|불가능|가능|
+  |`*SERIALIZABLE READ*`|불가능|불가능|불가능|
+
+<br/>
+-------
+
+> ## 출처 <br/>
+> https://velog.io/@lsb156/Transaction-Isolation-Level#read-committed
