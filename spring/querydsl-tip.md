@@ -121,9 +121,12 @@ private OrderSpecifier<?>[] parsingSortedColumn(Sort sorts){
 return queryFactory
                 .select(Projections.fields(PointCalculateAmount.class,
                         new CaseBuilder()
-                                .when(pointEvent.pointStatus.in(PointStatus.USE, PointStatus.USE_CANCEL))
-                                .then(pointEvent.pointAmount.multiply(-1))
-                                .otherwise(pointEvent.pointAmount).as("pointAmount"),
+                            .when(pointEvent.pointStatus
+                                .in(PointStatus.USE, PointStatus.USE_CANCEL))
+                            .then(pointEvent.pointAmount
+                                .multiply(-1))
+                            .otherwise(pointEvent.pointAmount)
+                                .as("pointAmount"),
                         pointEvent.pointStatus
                 ))
                 .from(pointEvent)
@@ -167,9 +170,7 @@ public class BookQueryRepository {
     public Boolean exist(Long idx) {
         Integer fetchOne = queryFactory
                 .selectFrom(book)
-                .where(
-                        book.idx.eq(idx)
-                )
+                .where(book.idx.eq(idx))
                 .fetchFirst();
                 
         return fetchOne != null;
@@ -203,15 +204,15 @@ public class BookQueryRepository {
     public Optional<BookDto> findBookDtoByIdx(Long idx) {
         return Optional.ofNullable(queryFactory
                 .select(Projections.fields(BookDto.class,
-			                book.name,
-                      Expressions.asNumber(idx).as("idx"),
-                      lender.idx.as("lenderIdx")		// BookDto 매핑 필드와 이름 매칭
+			        book.name,
+                    Expressions.asNumber(idx)
+                        .as("idx"),
+                    lender.idx
+                        .as("lenderIdx")// BookDto 매핑 필드와 이름 매칭
                 ))
                 .from(book)
                 .innerJoin(book.lender, lender)
-                .where(
-                      eqIdx(idx)
-                )
+                .where(eqIdx(idx))
                 .fetchOne());
     }
 }
