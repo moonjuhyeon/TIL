@@ -25,4 +25,4 @@
 ---
 
 ## 제출 코드
-###[GitHub 링크](https://github.com/moonjuhyeon/java-baseball-precourse/tree/moonjuhyeon)
+### [GitHub 링크](https://github.com/moonjuhyeon/java-baseball-precourse/tree/moonjuhyeon)
