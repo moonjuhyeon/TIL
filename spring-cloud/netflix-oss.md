@@ -67,7 +67,9 @@
     |구분|Ribbon|SCL|
     |:----|:----|:----|
     |지원 HttpClient|Rest Template(Blocking)|Rest Template(Blocking), Web Client(Non-Blocking)|
-    |지원 LB 정책| Round Robin, Availability Filtering Rule, Weighted Response Time Rule | Round Robin, Random | </br></br>
+    |지원 LB 정책| Round Robin, Availability Filtering Rule, Weighted Response Time Rule | Round Robin, Random |
+    
+     </br></br>
 
     ![scl.png](./asset/../assets/scl.png)
 
@@ -79,4 +81,11 @@
     5. 연결된 Instance의 주소를 WebClient로 전달
     6. WebClient는 SCL에 제골된 Service Instance의 주소를 호출
     7. 응답을 받은 EventLoop는 Client에 리턴
-- 
+   
+- **~~Juul~~**
+  - Juul 1
+  - Juul 2
+
+- **Spring Cloud Gateway**
+  - API Gateway
+  - Juul 1,2 와 비교
