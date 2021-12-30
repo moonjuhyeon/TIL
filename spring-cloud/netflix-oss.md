@@ -1,14 +1,14 @@
 # Netflix OSS
 
-- Netflix OSS는 Spring Cloud 기반의 MSA를 구현하는 오픈소스 프레임워크
+- Netflix OSS는 Spring Cloud 기반의 **MSA**를 구현하는 오픈소스 프레임워크
 
     ![netflix-oss-framework.webp](./assets/netflix-oss-framework.webp)
 
 - Netfilx OSS의 구성
   - Service Discovery : Eureka
-  - Circuit Breaker : Hysrix
-  - Intelligent Routing : Zuul
-  - Client Side Load Balancing : Ribbon
+  - Circuit Breaker : ~~Hysrix~~ (Resilience4j)
+  - Intelligent Routing : ~~Zuul~~ (Spring Cloud Gateway)
+  - Client Side Load Balancing : ~~Ribbon~~ (Spring Cloud LoadBalancer)
   
 - Netflix OSS의 MSA 5대 분류 특징
   1. Service Discovery : Eureka
