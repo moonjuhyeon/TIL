@@ -27,7 +27,7 @@
   - Eureka Server는 각 Client로 부터 정해진 (기본 30초) 시간 마다 Heartbeat을 수신
   - Heartbeat이 오지 않는 Service는 죽은 것으로 판단하고, Resistry에서 제거
   
-- ~~Ribbon~~
+- ~~Ribbon~~ (지원 종료)
   - Client Side Load Balancer 담당
   - Ribbon은 각 Service Instance들의 Load Balancing을 수행함
   - API Gateway에서도 Ribbon을 통해 Load Balancing을 수행 할 수 있으며, Ribbon을 사용하면 API Gateway가 없이 직접 Load Balancing을 수행 할 수 있음
@@ -42,6 +42,11 @@
   - **2018년 12월 이후 EOS 되었기 때문에, Spring Cloud LoadBalancer를 사용함**
 
 - Spring Cloud LoadBalancer
-  -  
+  - Ribbon과 비교
+
+    |구분|Ribbon|SCL|
+    |:----|:----|:----|
+    |지원 HttpClient|Rest Template(Blocking)|Rest Template(Blocking), Web Client(Non-Blocking)|
+    |지원 LB 정책| Round Robin, Availability Fitering Rule, Weighted Response Time Rule | Round Robin, Random |
 
 
