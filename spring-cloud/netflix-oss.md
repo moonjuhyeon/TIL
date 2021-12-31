@@ -64,7 +64,7 @@
 
   - Ribbon과 비교
 
-    |구분|Ribbon|SCL|
+    |구분|Ribbon|Spring Cloud LoadBalancer|
     |:----|:----|:----|
     |지원 HttpClient|Rest Template(Blocking)|Rest Template(Blocking), Web Client(Non-Blocking)|
     |지원 LB 정책| Round Robin, Availability Filtering Rule, Weighted Response Time Rule | Round Robin, Random |
@@ -82,10 +82,24 @@
     6. WebClient는 SCL에 제골된 Service Instance의 주소를 호출
     7. 응답을 받은 EventLoop는 Client에 리턴
    
-- **~~Juul~~**
-  - Juul 1
-  - Juul 2
+- **~~Zuul~~**
+  - Zuul 1
+        ![zuul-thread.png](./assets/zuul-thread.png)
+    - Servlet Framework(Tomcat)로 구성되어 내부적으로 Blocking과 Multithreaded를 지원
+    - 요청이 들어오면 Thread Pool에서 Thread를 할당하여 요청을 처리
+  - Zuul 2
+        ![zuul2-async](./assets/zuul2-async.png)
+    - Zuul 2는 Asynchronous(Netty)로 구성되어 Non-Blocking을 지원
+    - 요청이 들어오면 비동기 이벤트와 콜백을 통해 처리
+    - Zuul 2는 오버헤드가 적음
 
 - **Spring Cloud Gateway**
   - API Gateway
-  - Juul 1,2 와 비교
+    - API 요청자인 Client와 API 제공자인 Service를 연결하는 중계자
+    - API Gateway의 필요한 이유
+      - Authentification : 인증을 통하여 부적절한 요청으로 부터 Service를 보호
+      - Load Balancing & Routing : 요청에 따라 적절한 Service로의 L/B & 연결
+      - Logging : 연결된 트래픽 로깅
+      - Circuit Break : Service의 장애 감지 및 대처
+  - Zuul 1,2 와 비교
+    - 
