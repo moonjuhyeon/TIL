@@ -17,4 +17,4 @@
 
 ----
 
-## [우아한 테크 캠프 Pro 3기 회고](./retrospect.md)
+## [우아한 테크 캠프 Pro 3기 회고](./retrospect/retrospect.md)
