@@ -7,9 +7,13 @@
     - Thread Dump
     - Heap Dump
   - Bean Scope
+  - Filter Vs Interceptor Vs AOP
   
 - OOP
   - SOLID
+
+- Design Pattern
+  - Strategy
 
 - ORM
   - Hibernate
@@ -18,8 +22,9 @@
 
 - Spring Security
   - OAuth2
+    - OAuth1 Vs OAuth2
+    - 인증방식 4가지
   - SSO
-  - Filter
 
 - Spring Cloud
   - MSA
@@ -34,11 +39,15 @@
   
 - Spring Batch
 
+- HTTP
+  - 401 Vs 403
+
 - CQRS
   - Event-Driven
 
 - Cache
   - Global Cache Vs Local Cache
+  - Spring Cache Vs Redis
   - Hit Up 방안
   - Redis
     - MemCached
@@ -46,9 +55,9 @@
   - Spring Cache
   - Scale In Vs Scale Out
 
--  Database
-   -  Indexing
-   -  Tuning
+- Database
+  - Indexing
+  - Tuning
 
 - System Architecture
   - failures
@@ -58,7 +67,25 @@
     - Read -> Cache
   - Security
 
+- AWS
+  - VPC 망분리
 
+- ATDD
+  - ATDD Vs TDD
+  - 장점
 
+- EFK
+  - ELK Vs EFK
+  - Why EFK APM?
 
-### - 작은 것이라도 경험에 빗대어 말하는 습관 가지기
+- Reverse Proxy
+  - Nginx Reverse Proxy 개선 방안
+    - 정적데이터
+    - HTTP/2
+      - HTTP/1.1 Vs HTTP/2
+  - HTTP Caching
+
+- CI/CD
+  - How?
+
+### 작은 것이라도 경험에 빗대어 말하는 습관 가지기
