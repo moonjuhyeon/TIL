@@ -58,6 +58,9 @@
 - Database
   - Indexing
   - Tuning
+  - Transaction
+    - Level
+    - Distributed Transaction
 
 - System Architecture
   - failures
