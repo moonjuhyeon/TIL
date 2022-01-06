@@ -32,6 +32,7 @@
   - SOLID
 
 - Design Pattern
+  - Singleton
   - Strategy
     - SOLID?
 
