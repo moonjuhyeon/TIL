@@ -14,6 +14,7 @@
 
 - Design Pattern
   - Strategy
+    - SOLID?
 
 - ORM
   - Hibernate
@@ -72,6 +73,10 @@
 
 - AWS
   - VPC 망분리
+    - Subnet
+    - Routing
+    - Security Group  
+    - Bastion, Public, Private
 
 - ATDD
   - ATDD Vs TDD
@@ -86,6 +91,8 @@
     - 정적데이터
     - HTTP/2
       - HTTP/1.1 Vs HTTP/2
+      - Async?  
+      - keep-alive ?
   - HTTP Caching
 
 - CI/CD
