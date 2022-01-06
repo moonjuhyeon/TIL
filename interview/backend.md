@@ -1,7 +1,26 @@
 - Spring Framework
   - DI
-  - IOC
+    <details>
+    <summary>Answer</summary>
+    - 의존성 주입 (Dependency Injection) <br/>
+    - 객체를 직접 생성하지 않고 외부에서 주입하는 방식 <br/>
+    - 외부(IoC 컨테이너)에 생성된 Bean을 주입함
+    </details>
+  - IoC
+    <details>
+    <summary>Answer</summary>
+    - 제어의 역전 (Inversion of Control) <br/>
+    - 프로그램의 제어를 개발자가 직접하는 것이 아니라 Framework에서 결정 <br/>
+    - 의존을 역전 시켜 객체 간의 결합도를 줄이고 유연한 코드를 작성 가
+    </details>
   - AOP
+    <details>
+    <summary>Answer</summary>
+    - 관점 지향 프로그래밍 (Aspect Oriented Programming) <br/>
+    - 공통 모듈을 코드 밖에서 필요한 시점에 비즈니스 로직에 삽입하여 실행 <br/>
+    - Spring AOP는 프록시 패턴 기반의 구현체로 타겟 객체를 프록시로 만들어서 제공하며 프록시가 객체의 호출을 가로챈 다음 공통 모듈을 수행하고 타겟의 로직을 호출함 (반대로 가능) <br/>
+    - Logging과 Transaction과 같이 중복적으로 발생하는 코드의 재사용과 효율적인 유지보수 가능
+    </details>
   - Transaction
   - JVM기반의 Tunning (g1gc)
     - Thread Dump
