@@ -21,7 +21,8 @@
     - 관점 지향 프로그래밍 (Aspect Oriented Programming) <br/>
     - 공통 모듈을 코드 밖에서 필요한 시점에 비즈니스 로직에 삽입하여 실행 <br/>
     - Spring AOP는 프록시 패턴 기반의 구현체로 타겟 객체를 프록시로 만들어서 제공하며 프록시가 객체의 호출을 가로챈 다음 공통 모듈을 수행하고 타겟의 로직을 호출함 (반대로 가능) <br/>
-    - Logging과 Transaction과 같이 중복적으로 발생하는 코드의 재사용과 효율적인 유지보수 가능
+    - Logging과 Transaction과 같이 중복적으로 발생하는 코드의 재사용과 효율적인 유지보수 가능 <br/>
+    - 비즈니스 로직에서 공통적으로 사용하는 모듈을 관점 지향으로 사용하는 것
     </details>
     
   - Transaction
@@ -99,7 +100,6 @@
     <summary>Answer</summary>
     - 셋의 적용 시점이 다름 <br/>
     - filter, interceptor, aop의 순서로 적용됨 <br/>
-    - filter, interceptor, aop의 순서로 적용됨 <br/>
     </details>
     - Filter
       <details>
@@ -119,26 +119,72 @@
       - 비즈니스 로직 수준에서 Logging, Transaction 등 공통 모듈을 처리할 때 사용 <br/>
       - application 메서드 단위에서 실행됨 <br/>
       </details>
-    - Spring AOP
-      <details>
-      <summary>Answer</summary>
-      - Spring 환경에서 AOP를 구현할 수 있도록하는 프록시 패턴 기반의 AOP 구현체.용 <br/>
-      - 타겟 객체를 프록시로 만들어서 제공하며 프록시가 객체의 호출을 가로챈다음 부가기능 로직을 수행하고 타겟의 로직을 호출함 <br/>
-      - 공통모듈을 
-      </details>
 
 - OOP
   - SOLID
+    <details>
+    <summary>Answer</summary>
+    - SRP(Single Responsibility Principle) : 단일 책임 원칙 <br/>
+    &nbsp&nbsp&nbsp * 클래스는 단 하나의 책임을 가져야 하며 클래스를 변경하는 이유는 단 하나의 이유여야 함 <br/>
+    - OCP(Open-Close Principle) : 개방 폐쇄 원칙 <br/>
+    &nbsp&nbsp&nbsp * 확장에는 열려 있어야 하고 변경에는 닫혀 있어야 함 <br/>
+    - LSP(Liskov Substitution Principle) : 리스코프 치환 원칙 <br/>
+    &nbsp&nbsp&nbsp * 상위 타입의 객체를 하위 타입의 객체로 치환해도 상위 타입을 사용하는 프로그램은 정상적으로 동작해야 함 <br/>
+    - ISP(Interface Segregation Principle) : 인터페이스 분리 원칙 <br/>
+    &nbsp&nbsp&nbsp * 인터페이스는 그 인터페이스를 사용하는 클라이언트를 기준으로 분리해야 함 <br/>
+    - DIP(Dependency Inversion Principle) : 의존 역전 원칙 <br/>
+    &nbsp&nbsp&nbsp * 고수준 모듈은 저수준 모듈의 구현에 의존해서는 안됨 <br/>
+    </details>
 
 - Design Pattern
   - Singleton
+    <details>
+    <summary>Answer</summary>
+    - 전역 변수를 사용하지 않고 객체를 하나만 생성하도록 하며, 생성된 객체를 어디에서든지 참조할 수 있도록 하는 디자인 패턴 <br/>
+    - 생성(Creational) 패턴 중 하나로, 객체의 생성과 조합을 캡슐화해 특정 객체가 생성되거나 변경되어도 프로그램 구조에 영향을 크게 받지 않는 유연형 제공 <br/>
+    - private 생성자를 사용하여 상속이 불가능하고, 다중 스레드 환경에서 인스턴스가 1개 이상 생성되는 경우가 발생할 수 있음 <br/>
+    </details>
+
   - Strategy
-    - SOLID?
+    <details>
+    <summary>Answer</summary>
+    - 같은 문제를 해결하는 여러 알고리즘이 클래스별로 캡슐화되어 있고 이들이 필요할 때 교체할 수 있도록 함으로써 동일한 문제를 다른 알고리즘으로 해결할 수 있게 하는 디자인 패턴 <br/>
+    - 행위(Behavioral) 패턴 중 하나로,한 객체가 혼자 수행할 수 없는 작업을 여러 개의 객체로 어떻게 분배하는지, 또 그렇게 하면서도 객체 사이의 결합도를 최소화하는 것에 중점 <br/>
+    - 기존 코드의 변경을 최소화 하면서 기능을 추가할 수 있기 때문에 개방 폐쇄 원칙 (OCP)을 만족함
+    </details>
 
 - ORM
   - Hibernate
-  - JPA
+    <details>
+    <summary>Answer</summary>
+    - ORM 기술에 대한 명세인 JPA(Java Persistence API)의 구현체의 한 종류로 JPA 인터페이스를 구현하며, 내부적으로 JDBC API를 사용
+    - JPA의 SessionFactory, Session, Transaction으로 상속받고 각각 Impl로 구현함
+    - JPA는 추상화된 데이터 접근 계층을 제공하기 때문에 특정 벤더에 종속적이지 않음
+    </details>
+
+  - Spring Data JPA
+    <details>
+    <summary>Answer</summary>
+    - Spring에서 제공하는 모듈로 JPA를 한 단계 추상화시킨 Repository라는 인터페이스를 제공함 <br/>
+    - 사용자가 Repository 인터페이스에 정해진 규칙대로 메소드를 입력하면, Spring이 알아서 해당 메소드 이름에 적합한 쿼리를 날리는 구현체를 만들어서 Bean으로 등록함 <br/>
+    - 공통 메소드가 아닐 경우에도 스프링 데이터 JPA가 메소드 이름을 분석해서 JPQL을 실행
+    </details>
+    
     - N+1
+      <details>
+      <summary>Answer</summary>
+      - SRP(Single Responsibility Principle) : 단일 책임 원칙 <br/>
+      &nbsp&nbsp&nbsp * 클래스는 단 하나의 책임을 가져야 하며 클래스를 변경하는 이유는 단 하나의 이유여야 함 <br/>
+      - OCP(Open-Close Principle) : 개방 폐쇄 원칙 <br/>
+      &nbsp&nbsp&nbsp * 확장에는 열려 있어야 하고 변경에는 닫혀 있어야 함 <br/>
+      - LSP(Liskov Substitution Principle) : 리스코프 치환 원칙 <br/>
+      &nbsp&nbsp&nbsp * 상위 타입의 객체를 하위 타입의 객체로 치환해도 상위 타입을 사용하는 프로그램은 정상적으로 동작해야 함 <br/>
+      - ISP(Interface Segregation Principle) : 인터페이스 분리 원칙 <br/>
+      &nbsp&nbsp&nbsp * 인터페이스는 그 인터페이스를 사용하는 클라이언트를 기준으로 분리해야 함 <br/>
+      - DIP(Dependency Inversion Principle) : 의존 역전 원칙 <br/>
+      &nbsp&nbsp&nbsp * 고수준 모듈은 저수준 모듈의 구현에 의존해서는 안됨 <br/>
+      </details>
+
 
 - Spring Security
   - OAuth2
