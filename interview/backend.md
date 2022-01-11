@@ -101,18 +101,22 @@
     - 셋의 적용 시점이 다름 <br/>
     - filter, interceptor, aop의 순서로 적용됨 <br/>
     </details>
+    
     - Filter
       <details>
       <summary>Answer</summary>
       - 인증, URL 필터링 등 요청(Request) 수준에서 처리할 때 사용 <br/>
       - Servlet 단위에서 실행됨 <br/>
       </details>
+    
     - Interceptor
+      
       <details>
       <summary>Answer</summary>
       - 요청이 이루어진 HTTP 프로토콜 수준에서 처리할 때 사용 <br/>
       - Servlet 단위에서 실행됨 <br/>
       </details>
+      
     - AOP
       <details>
       <summary>Answer</summary>
@@ -157,8 +161,8 @@
   - Hibernate
     <details>
     <summary>Answer</summary>
-    - ORM 기술에 대한 명세인 JPA(Java Persistence API)의 구현체의 한 종류로 JPA 인터페이스를 구현하며, 내부적으로 JDBC API를 사용
-    - JPA의 SessionFactory, Session, Transaction으로 상속받고 각각 Impl로 구현함
+    - ORM 기술에 대한 명세인 JPA(Java Persistence API)의 구현체의 한 종류로 JPA 인터페이스를 구현하며, 내부적으로 JDBC API를 사용 <br/>
+    - JPA의 SessionFactory, Session, Transaction으로 상속받고 각각 Impl로 구현함 <br/>
     - JPA는 추상화된 데이터 접근 계층을 제공하기 때문에 특정 벤더에 종속적이지 않음
     </details>
 
@@ -173,23 +177,42 @@
     - N+1
       <details>
       <summary>Answer</summary>
-      - SRP(Single Responsibility Principle) : 단일 책임 원칙 <br/>
-      &nbsp&nbsp&nbsp * 클래스는 단 하나의 책임을 가져야 하며 클래스를 변경하는 이유는 단 하나의 이유여야 함 <br/>
-      - OCP(Open-Close Principle) : 개방 폐쇄 원칙 <br/>
-      &nbsp&nbsp&nbsp * 확장에는 열려 있어야 하고 변경에는 닫혀 있어야 함 <br/>
-      - LSP(Liskov Substitution Principle) : 리스코프 치환 원칙 <br/>
-      &nbsp&nbsp&nbsp * 상위 타입의 객체를 하위 타입의 객체로 치환해도 상위 타입을 사용하는 프로그램은 정상적으로 동작해야 함 <br/>
-      - ISP(Interface Segregation Principle) : 인터페이스 분리 원칙 <br/>
-      &nbsp&nbsp&nbsp * 인터페이스는 그 인터페이스를 사용하는 클라이언트를 기준으로 분리해야 함 <br/>
-      - DIP(Dependency Inversion Principle) : 의존 역전 원칙 <br/>
-      &nbsp&nbsp&nbsp * 고수준 모듈은 저수준 모듈의 구현에 의존해서는 안됨 <br/>
+      - 원인 <br/>
+      &nbsp&nbsp&nbsp - 두 개의 엔티티가 1:N의 관계를 가지며 JPQL로 조회할 때 <br/>
+      &nbsp&nbsp&nbsp - EAGER 전략으로 데이터를 가져오는 경우 <br/>
+      &nbsp&nbsp&nbsp - LAZY 전략으로 데이터를 가져온 이후에 가져온 데이터에서 하위 엔티티를 다시 조회하는 경우 <br/>
+      - 해결방법 <br/>
+      &nbsp&nbsp&nbsp - fetch join <br/>
+      &nbsp&nbsp&nbsp - batch size <br/>
+      &nbsp&nbsp&nbsp - entity graph <br/>
       </details>
-
 
 - Spring Security
   - OAuth2
     - OAuth1 Vs OAuth2
+      <details>
+      <summary>Answer</summary>
+      - 가장 큰 차이점은 Request Token이 Refresh Token으로 대체되어 토큰의 유효기간이 생겼다는 점이라고 생각, 또한 OAuth2는 HTTPS 기반의 서명을 지원함
+      </details>
+      
     - 인증방식 4가지
+      <details>
+      <summary>Answer</summary>
+      - 권한 부여 코드 승인 타입 (Authorization Code Grant Type) <br/>
+      &nbsp&nbsp&nbsp * 소셜 미디어들이 웹 서버 형태의 클라이언트를 지원하는데 사용하는 방식 <br/>
+      &nbsp&nbsp&nbsp * 웹 서버에서 장기 액세스 토큰(long-lived access token)을 사용하여 사용자 인증을 처리 <br/>
+      - 암시적 승인 타입 (Implicit Grant Type) <br/>
+      &nbsp&nbsp&nbsp * 권한 부여 코드 승인 타입과 다르게 권한 부여 코드 없이 사용자 자격 증명을 교환하는 방식 <br/>
+      &nbsp&nbsp&nbsp * 원래는 JavaScript에서 사용하기 위해 만들어 졌지만, 특정 상황에서만 권장 <br/>
+      - 리소스 소유자 암호 자격 증명 승인 타입 (Resource Owner Password Credentials Grant Type) <br/>
+      &nbsp&nbsp&nbsp * 클라이언트가 암호를 사용해 엑세스 토큰에 대한 사용자의 자격 증명을 교환하는 방식 <br/>
+      &nbsp&nbsp&nbsp * Id, Password를 이용해 자격 증명을 클라이언트에게 인증 요청 <br/>
+      &nbsp&nbsp&nbsp * Access Token을 이용해 리소스 서버와 통신 <br/>
+      - 클라이언트 자격 증명 승인 타입 (Client Credentials Grant Type)
+      &nbsp&nbsp&nbsp * 클라이언트가 컨텍스트 외부에서 액세스 토큰을 얻어 특정 리로스에 접근을 요청할때 사용 <br/>
+      &nbsp&nbsp&nbsp * 사용자가 앱인 경우에 활용 <br/>
+      </details>
+
   - SSO
 
 - Spring Cloud
