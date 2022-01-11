@@ -208,7 +208,7 @@
       &nbsp&nbsp&nbsp * 클라이언트가 암호를 사용해 엑세스 토큰에 대한 사용자의 자격 증명을 교환하는 방식 <br/>
       &nbsp&nbsp&nbsp * Id, Password를 이용해 자격 증명을 클라이언트에게 인증 요청 <br/>
       &nbsp&nbsp&nbsp * Access Token을 이용해 리소스 서버와 통신 <br/>
-      - 클라이언트 자격 증명 승인 타입 (Client Credentials Grant Type)
+      - 클라이언트 자격 증명 승인 타입 (Client Credentials Grant Type) <br/>
       &nbsp&nbsp&nbsp * 클라이언트가 컨텍스트 외부에서 액세스 토큰을 얻어 특정 리로스에 접근을 요청할때 사용 <br/>
       &nbsp&nbsp&nbsp * 사용자가 앱인 경우에 활용 <br/>
       </details>
