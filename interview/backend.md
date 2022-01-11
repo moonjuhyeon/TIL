@@ -62,16 +62,71 @@
       - 메모리나 성능 최적화에 유리 <br/>
       </details>
     - Prototype
+      <details>
+      <summary>Answer</summary>
+      - 컨테이너에서 Bean을 가져다 쓸 때 항상 다른 인스턴스를 사용 <br/>
+      - 모든 요청에서 새로운 객체 생성 <br/>
+      - gc에 의해 Bean 제거 <br/>
+      </details>
     - Request
+      <details>
+      <summary>Answer</summary>
+      - Bean 등록 시 하나의 HTTP Request 생명주기 안에 단 하나의 Bean만 존재 <br/>
+      - 각각의 HTTP 요청은 고유 Bean 객체 보유 <br/>
+      - Spring MVC Web Application에서 사용 <br/>
+      </details>
     - Session
+      <details>
+      <summary>Answer</summary>
+      - 하나의 HTTP Session 생명주기 안에 단 하나의 Bean만 존재 <br/>
+      - Spring MVC Web Application에서 사용 <br/>
+      </details>
     - Global Session
+      <details>
+      <summary>Answer</summary>
+      - 하나의 HTTP Session 생명주기 안에 단 하나의 Bean만 존재 <br/>
+      - Spring MVC Web Application에서 사용 <br/>
+      </details>
     - Application
-  
+      <details>
+      <summary>Answer</summary>
+      - Servlet Context 안에 단 하나의 Bean만 존재 <br/>
+      - Spring MVC Web Application에서 사용 <br/>
+      </details>
+
   - Filter Vs Interceptor Vs AOP
+    <details>
+    <summary>Answer</summary>
+    - 셋의 적용 시점이 다름 <br/>
+    - filter, interceptor, aop의 순서로 적용됨 <br/>
+    - filter, interceptor, aop의 순서로 적용됨 <br/>
+    </details>
     - Filter
+      <details>
+      <summary>Answer</summary>
+      - 인증, URL 필터링 등 요청(Request) 수준에서 처리할 때 사용 <br/>
+      - Servlet 단위에서 실행됨 <br/>
+      </details>
     - Interceptor
+      <details>
+      <summary>Answer</summary>
+      - 요청이 이루어진 HTTP 프로토콜 수준에서 처리할 때 사용 <br/>
+      - Servlet 단위에서 실행됨 <br/>
+      </details>
     - AOP
-  
+      <details>
+      <summary>Answer</summary>
+      - 비즈니스 로직 수준에서 Logging, Transaction 등 공통 모듈을 처리할 때 사용 <br/>
+      - application 메서드 단위에서 실행됨 <br/>
+      </details>
+    - Spring AOP
+      <details>
+      <summary>Answer</summary>
+      - Spring 환경에서 AOP를 구현할 수 있도록하는 프록시 패턴 기반의 AOP 구현체.용 <br/>
+      - 타겟 객체를 프록시로 만들어서 제공하며 프록시가 객체의 호출을 가로챈다음 부가기능 로직을 수행하고 타겟의 로직을 호출함 <br/>
+      - 공통모듈을 
+      </details>
+
 - OOP
   - SOLID
 
