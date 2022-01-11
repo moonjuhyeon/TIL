@@ -230,8 +230,21 @@
 
 - HTTP
   - 401 Vs 403
+    <details>
+    <summary>Answer</summary>
+    - 401 : 로그인이 되지 않은 상태에서 요청을 하는 경우 발생 <br/>
+    - 403 : 권한이 없는 요청을 하는 경우 발생 <br/>
+    </details>
 
 - CQRS
+  <details>
+  <summary>Answer</summary>
+  - Command And Query Responsibility Segregation, 명령과 조회의 책임을 분리함 <br/>
+  - 명령 도메인(내부 관리용 데이터)과 조회 도메인(정책, 외부 주입 데이터)을 분리함 <br/>
+  - 생성, 저장과 조회 시점을 나누어 조회 도메인의 비정규화된 데이터를 그대로 DB에 저장함 (이때 NoSQL을 많이 씀) <br/>
+  - 명령 도메인에 몰린 데이터 생성의 책임을 이벤트 소싱 패턴을 통해 조회 모델을 생성, 저장하는 새로운 어플리케이션으로 책임을 넘길 수 있음 <br/>
+  </details>
+  
   - Event-Driven
 
 - Cache
