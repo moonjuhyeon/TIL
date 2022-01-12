@@ -35,23 +35,6 @@
     - 트랜잭션을 걸지 않으면 모든 SELECT 쿼리마다 commit을 하기 때문에 성능이 떨어짐. 명시적으로 트랜잭션을 걸어주면 마지막에 명시적으로 commit을 해주면 되며, commit 횟수가 줄어서 성능이 좋아짐
     </details>
     
-  - JVM 기반의 Tuning (g1gc)
-    - Thread Dump
-      <details>
-      <summary>Answer</summary>
-      - Thread Dump를 통해 모든 Thread가 무슨 일을 하는지 알 수 있음 <br/>
-      - 애플리케이션의 Thread 상에서 나타나는 문제는 대부분 Lock으로 인해 발생 <br/>
-      - 장애가 났을 때의 Heap 상태를 기록으로 남겨 그 당시에 어떤 Java 객체들이 많이 만들어졌는지 분석 <br/>
-      - jstack, VisualVM, Arthas 을 사용하여 Thread Dump를 얻을 수 있음 <br/>
-      - Thread 이름, 식별자, 우선순위(prio), Thread가 점유하는 메모리 주소를 의미하는 Thread ID(tid), OS에서 관리하는 Thread ID (nid), Thread 상태 (NEW | RUNNABLE | BLOCKED | WAITING | TIMED_WAITING | TERMINATED) 등의 정보를 확인 가능 <br/>
-      - RUNNABLE 상태면서 지속시간이 긴 Thread가 없는지, Lock 처리가 제대로 되지 않아 문제가 발생하고 있지는 않은지 확인
-      </details>
-    - Heap Dump
-      <details>
-      <summary>Answer</summary>
-      - Heap의 사용량이 순간적으로 증가하면  GC(Garbage Collection)가 과도하게 일어나면서 어플리케이션의 성능이 저해되거나, 심한 경우에는 OOM(Out Of Memory)이 발생하여 어플리케이션이 다운됨 <br/>
-      - jmap을 사용하여 Heap Dump를 얻을 수 있음
-      </details>
     
   - Bean Scope
     - Singleton (Default)
@@ -95,6 +78,7 @@
       - Spring MVC Web Application에서 사용 <br/>
       </details>
 
+  
   - Filter Vs Interceptor Vs AOP
     <details>
     <summary>Answer</summary>
@@ -123,6 +107,28 @@
       - 비즈니스 로직 수준에서 Logging, Transaction 등 공통 모듈을 처리할 때 사용 <br/>
       - application 메서드 단위에서 실행됨 <br/>
       </details>
+
+- Java
+  - Reflection
+  - GC
+  - JVM 기반의 Tuning (g1gc)
+    - Thread Dump
+      <details>
+      <summary>Answer</summary>
+      - Thread Dump를 통해 모든 Thread가 무슨 일을 하는지 알 수 있음 <br/>
+      - 애플리케이션의 Thread 상에서 나타나는 문제는 대부분 Lock으로 인해 발생 <br/>
+      - 장애가 났을 때의 Heap 상태를 기록으로 남겨 그 당시에 어떤 Java 객체들이 많이 만들어졌는지 분석 <br/>
+      - jstack, VisualVM, Arthas 을 사용하여 Thread Dump를 얻을 수 있음 <br/>
+      - Thread 이름, 식별자, 우선순위(prio), Thread가 점유하는 메모리 주소를 의미하는 Thread ID(tid), OS에서 관리하는 Thread ID (nid), Thread 상태 (NEW | RUNNABLE | BLOCKED | WAITING | TIMED_WAITING | TERMINATED) 등의 정보를 확인 가능 <br/>
+      - RUNNABLE 상태면서 지속시간이 긴 Thread가 없는지, Lock 처리가 제대로 되지 않아 문제가 발생하고 있지는 않은지 확인
+      </details>
+    - Heap Dump
+      <details>
+      <summary>Answer</summary>
+      - Heap의 사용량이 순간적으로 증가하면  GC(Garbage Collection)가 과도하게 일어나면서 어플리케이션의 성능이 저해되거나, 심한 경우에는 OOM(Out Of Memory)이 발생하여 어플리케이션이 다운됨 <br/>
+      - jmap을 사용하여 Heap Dump를 얻을 수 있음
+      </details>
+
 
 - OOP
   - SOLID
@@ -215,6 +221,7 @@
 
   - SSO
 
+
 - Spring Cloud
   - MSA
     - 장점
@@ -270,8 +277,7 @@
     </details>
 
   - Hit Up 방안
-    
-
+  
   - Redis
     - MemCached
     - Sub/Pub
@@ -296,7 +302,31 @@
   - Tuning
   - Transaction
     - Level
+      - READ UNCOMMITTED
+      - READ COMMITTED
+      - REPEATABLE READ
+      - SERIALIZABLE
     - Distributed Transaction
+      - Two-Phase Commit
+      - Saga Pattern
+    - Exclusive Lock
+      <details>
+      <summary>Answer</summary>
+      - 배타적 잠금으로 쓰기 잠금 (Write Lock)이라고도 불림  <br/>
+      - 어떤 트랜잭션에서 데이터를 쓰거나 변경할 때 해당 트랜잭션이 완료될 때 까지 해당 테이블 혹은 레코드(row)를 다른 트랜잭션에서 읽거나 쓰지 못함 <br/>
+      - Exclusive Lock 에 걸리면 Shared Lock 을 걸 수 없음 <br/>
+      - Exclusive Lock 에 걸린 테이블, 레코드 등의 자원에 대해 다른 트랜잭션이 Exclusive Lock 을 걸 수 없음 <br/>
+      </details>
+
+    - Shared Lock
+      <details>
+      <summary>Answer</summary>
+      - 공유 잠금으로 읽기 잠금 (Read Lock)이라고도 불림  <br/>
+      - 어떤 트랜잭션에서 데이터를 읽고자 할 때 다른 Shared Lock은 허용, Exclusive Lock은 불가함<br/>
+      - 리소스를 다른 사용자가 동시에 읽을 수 있게 하되, 변경은 불가하게 만드는 것 <br/>
+      - 어떤 자원에 Shared Lock 이 동시에 여러 개 적용될 수 있음 <br/>
+      - 어떤 자원에 SHared LOck 이 하나라도 걸려있으면 Exclusive Lock을 걸 수 없음 <br/>
+      </details>
 
 - System Architecture
   - failures
@@ -333,7 +363,7 @@
       <summary>Answer</summary>
       - HTTP/3는 QUIC(Quick UDP Internet Connection)이라는 프로토콜 위에서 돌아가는 HTTP <br/>
       - 기존 TCP 방식의 HTTP는 3Way Handshake와 HOLB(Head of Line Blocking) 문제로 UDP에 비해 속도가 느림 <br/>
-      - 연결 설정 시 레이턴시가 감소함 <br/>
+      - 연결 설정에 필요한 정보와 함께 데이터도 보내버리는 방법으로 연결 설정 시 레이턴시가 감소함 <br/>
       - 패킷 손실 감지에 걸리는 시간이 감축됨 <br/>
       - 단일 연결에 대한 멀티 플렉싱을 지원 <br/>
       - Connection ID를 사용하여 클라이언트 IP가 바뀌어도 연결이 유지됨 <br/>
