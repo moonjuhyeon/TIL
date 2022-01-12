@@ -43,7 +43,7 @@
       - 애플리케이션에서 Bean 등록 시 singleton scope로 등록 <br/>
       - Spring IoC 컨테이너 당 한 개의 인스턴스만 생성 <br/>
       - 컨테이너가 Bean 가져다 주입할 때 항상 같은 객체 사용 <br/>
-      - 메모리나 성능 최적화에 유리 <br/>
+      - Thread Safety를 자동으로 보장 <br/>
       </details>
     - Prototype
       <details>
@@ -108,26 +108,44 @@
       - application 메서드 단위에서 실행됨 <br/>
       </details>
 
-- Java
-  - Reflection
-  - GC
-  - JVM 기반의 Tuning (g1gc)
-    - Thread Dump
+  - Java
+    - Reflection
       <details>
-      <summary>Answer</summary>
-      - Thread Dump를 통해 모든 Thread가 무슨 일을 하는지 알 수 있음 <br/>
-      - 애플리케이션의 Thread 상에서 나타나는 문제는 대부분 Lock으로 인해 발생 <br/>
-      - 장애가 났을 때의 Heap 상태를 기록으로 남겨 그 당시에 어떤 Java 객체들이 많이 만들어졌는지 분석 <br/>
-      - jstack, VisualVM, Arthas 을 사용하여 Thread Dump를 얻을 수 있음 <br/>
-      - Thread 이름, 식별자, 우선순위(prio), Thread가 점유하는 메모리 주소를 의미하는 Thread ID(tid), OS에서 관리하는 Thread ID (nid), Thread 상태 (NEW | RUNNABLE | BLOCKED | WAITING | TIMED_WAITING | TERMINATED) 등의 정보를 확인 가능 <br/>
-      - RUNNABLE 상태면서 지속시간이 긴 Thread가 없는지, Lock 처리가 제대로 되지 않아 문제가 발생하고 있지는 않은지 확인
-      </details>
-    - Heap Dump
-      <details>
-      <summary>Answer</summary>
-      - Heap의 사용량이 순간적으로 증가하면  GC(Garbage Collection)가 과도하게 일어나면서 어플리케이션의 성능이 저해되거나, 심한 경우에는 OOM(Out Of Memory)이 발생하여 어플리케이션이 다운됨 <br/>
-      - jmap을 사용하여 Heap Dump를 얻을 수 있음
-      </details>
+        <summary>Answer</summary>
+        - 구체적인 클래스 타입을 알지 못해도 그 클래스의 정보(메서드, 타입, 변수 등등)에 접근할 수 있게 해주는 자바 API <br/>
+        - 자바에서는 JVM이 실행되면 사용자가 작성한 자바 코드가 컴파일러를 거쳐 바이트 코드로 변환되어 static 영역에 저장되며 Reflection API는 이 정보를 활용함 <br/>
+        - Bean은 애플리케이션이 실행한 후 런타임에 객체가 호출될 때 동적으로 객체의 인스턴스를 생성하는데 이때 Spring Container의 BeanFactory에서 리플렉션을 사용함 <br/>
+        - Reflection API로 가져올 수 없는 정보 중 하나가 생성자의 인자 정보, Entity에 기본 생성자가 필요한 이유도 동적으로 객체 생성 시 Reflection API를 활용함 <br/>
+        </details>
+
+    - GC
+      - Stop-The-World
+        <details>
+        <summary>Answer</summary>
+        - Full GC가 발생하면 JVM은 어플리캐이션 실행을 멈추고 GC를 실행하는 쓰레드만 작동함 <br/>
+        - Full GC가 발생하면 서비스는 중단될 것이고 서비스가 중단 된 동안 각종 Time Out이 발생할 것이고 미뤄진 작업들이 누적되어 또 다른 Full GC를 발생시켜 장시간 장애가 발생함 <br/>
+        - 어떤 GC알고리즘을 사용하더라도 Full GC와 STW는 발생함 <br/>
+        - 대개의 경우 GC 튜닝이란 이 stop-the-world 시간을 줄이는 것 <br/>
+        </details>
+      - Version Default
+
+    - JVM 기반의 Tuning (g1gc)
+      - Thread Dump
+        <details>
+        <summary>Answer</summary>
+        - Thread Dump를 통해 모든 Thread가 무슨 일을 하는지 알 수 있음 <br/>
+        - 애플리케이션의 Thread 상에서 나타나는 문제는 대부분 Lock으로 인해 발생 <br/>
+        - 장애가 났을 때의 Heap 상태를 기록으로 남겨 그 당시에 어떤 Java 객체들이 많이 만들어졌는지 분석 <br/>
+        - jstack, VisualVM, Arthas 을 사용하여 Thread Dump를 얻을 수 있음 <br/>
+        - Thread 이름, 식별자, 우선순위(prio), Thread가 점유하는 메모리 주소를 의미하는 Thread ID(tid), OS에서 관리하는 Thread ID (nid), Thread 상태 (NEW | RUNNABLE | BLOCKED | WAITING | TIMED_WAITING | TERMINATED) 등의 정보를 확인 가능 <br/>
+        - RUNNABLE 상태면서 지속시간이 긴 Thread가 없는지, Lock 처리가 제대로 되지 않아 문제가 발생하고 있지는 않은지 확인
+        </details>
+      - Heap Dump
+        <details>
+        <summary>Answer</summary>
+        - Heap의 사용량이 순간적으로 증가하면  GC(Garbage Collection)가 과도하게 일어나면서 어플리케이션의 성능이 저해되거나, 심한 경우에는 OOM(Out Of Memory)이 발생하여 어플리케이션이 다운됨 <br/>
+        - jmap을 사용하여 Heap Dump를 얻을 수 있음
+        </details>
 
 
 - OOP
