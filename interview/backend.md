@@ -35,7 +35,7 @@
     - 트랜잭션을 걸지 않으면 모든 SELECT 쿼리마다 commit을 하기 때문에 성능이 떨어짐. 명시적으로 트랜잭션을 걸어주면 마지막에 명시적으로 commit을 해주면 되며, commit 횟수가 줄어서 성능이 좋아짐
     </details>
     
-  - JVM기반의 Tunning (g1gc)
+  - JVM 기반의 Tuning (g1gc)
     - Thread Dump
       <details>
       <summary>Answer</summary>
@@ -248,17 +248,51 @@
   - Event-Driven
 
 - Cache
-  - Global Cache Vs Local Cache
-  - Spring Cache Vs Redis
+  - Local Cache
+    <details>
+    <summary>Answer</summary>
+    - 서버마다 Cache를 따로 저장함 <br/>
+    - 다른 서버의 캐시 참조가 어려움 <br/>
+    - 로컬 서버의 Resource(Memory, Disk)를 이용함<br/>
+    - 캐시에 변경이 있는 경우 모든 peer에 변경 사항을 전달해야 함 <br/>
+    - ex) Spring Cache <br/>
+    </details>
+
+  - Global Cache
+    <details>
+    <summary>Answer</summary>
+    - 여러 서버에서 Cache 서버에 접근 가능 <br/>
+    - 별도의 Cache 서버를 이용하기 때문에 서버 간 Cache 데이터 공유가 쉬움 <br/>
+    - 네트워크 트래픽을 사용하기 떄문에 Local Cache 보다는 느림 <br/>
+    - 데이터를 분산 저장 가능 <br/>
+    - 캐시에 변경이 있는 경우 추가적인 작업이 필요 없음 <br/>
+    - ex) Redis <br/>
+    </details>
+
   - Hit Up 방안
+    
+
   - Redis
     - MemCached
     - Sub/Pub
   - Spring Cache
-  - Scale In Vs Scale Out
+  - Scale Up Vs Scale Out
+    <details>
+    <summary>Answer</summary>
+    - Scale Up : Cache 인스턴스의 크기를 사이즈를 크게  <br/>
+    - Scale out : Replica를 Cache 클러스터에 추가  <br/>
+    </details>
 
 - Database
   - Indexing
+    <details>
+    <summary>Answer</summary>
+    - SELECT 조건에는 부등호 연산(<, >)을 사용하기 떄문에 Index는 Hash Table이 아닌 B+Tree 사용 <br/>
+    - B+Tree의 검색은 루트노드에서 어떤 리프 노드에 이르는 한 개의 경로만 검색하면 되므로 매우 효율적 <br/>
+    - Index는 이진트리를 사용하기 때문에 기본적으로 정렬되어 있기 때문에 검색과 조회의 속도를 향상시킬 수 있지만 잦은 데이터의 변경(삽입, 수정 삭제)가 된다면 인덱스 데이블을 변경과 정렬에 드는 오버헤드 때문에 오히려 성능 저하됨 <br/>
+    - 다중 컬럼 인덱싱할 때 카디널리티가 높은 컬럼->낮은 컬럼 순으로 인덱싱해야 효율적 <br/>
+    </details>
+    
   - Tuning
   - Transaction
     - Level
@@ -294,6 +328,18 @@
       - HTTP/1.1 Vs HTTP/2
       - Async?  
       - keep-alive ?
+    - HTTP/3
+      <details>
+      <summary>Answer</summary>
+      - HTTP/3는 QUIC(Quick UDP Internet Connection)이라는 프로토콜 위에서 돌아가는 HTTP <br/>
+      - 기존 TCP 방식의 HTTP는 3Way Handshake와 HOLB(Head of Line Blocking) 문제로 UDP에 비해 속도가 느림 <br/>
+      - 연결 설정 시 레이턴시가 감소함 <br/>
+      - 패킷 손실 감지에 걸리는 시간이 감축됨 <br/>
+      - 단일 연결에 대한 멀티 플렉싱을 지원 <br/>
+      - Connection ID를 사용하여 클라이언트 IP가 바뀌어도 연결이 유지됨 <br/>
+      
+      </details>
+      
   - HTTP Caching
 
 - CI/CD
