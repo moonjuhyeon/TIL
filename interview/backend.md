@@ -127,8 +127,62 @@
         - 어떤 GC알고리즘을 사용하더라도 Full GC와 STW는 발생함 <br/>
         - 대개의 경우 GC 튜닝이란 이 stop-the-world 시간을 줄이는 것 <br/>
         </details>
-      - Version Default
+        
+      - Parallel GC (8 Default)
+        <details>
+        <summary>Answer</summary>
+        - Serial GC가 하나의 스레드로 Mark-Sweep-Compaction을 수행한다면, Parallel GC는 여러 개의 스레드로 Mark-Sweep-Compaction을 수행함 <br/>
+        </details>
+        
+      - Parallel Old GC
+        <details>
+        <summary>Answer</summary>
+        - Parallel GC와 비슷하나, Mark-Sweep-Compaction 알고리즘 대신 Mark-Summary-Compaction 알고리즘을 사용함 <br/>
+        - Summary 작업은 Sweep 작업에 살아있는 객체를 식별하는 작업이 추가된 것 <br/>
+        </details>    
 
+      - CMS(Concurrent Mark Sweep) GC
+        <details>
+        <summary>Answer</summary>
+        - GC 대상 객체를 최대한 자세히 파악한 후, Stop-The-World 가 발생하는 Sweep 시간을 최소화 하는데 초점, Low Latency GC라고도 부름 <br/>
+        - 단점으로는 하는 일이 많다보니 CPU 부하가 커진다는 것 <br/>
+        - Compaction이 기본적으로 제공되지 않고 필요할 때만 일어나는데, 이때의 Stop-The-World 시간이 다른 GC보다 더 길게 걸릴 수도 있음 <br/>
+        </details>
+
+      - G1(Garbage First) GC (9+ Default)
+        <details>
+        <summary>Answer</summary>
+        - 큰 Heap 메모리에서 짧은 GC 시간을 보장하는데 그 목적을 둠 <br/>
+        - 전체 Heap 영역을 Region이라는 특정한 크기로 나눠서, 각 Region의 상태에 따라 역할(Eden, Survivor, Old)이 동적으로 부여함 <br/>
+        - 2048개의 Region으로 나뉠수 있으며, 옵션을 통해 1MB~32MB 사이로 지정할 수 있음 <br/>
+        - Young 영역에서 GC가 수행되면 Stop-The-World 현상이 발생하며, 이 시간을 줄이기 위해 멀티 스레드로 GC를 수행함 <br/>
+        </details> 
+
+      - Z GC (11)
+        <details>
+        <summary>Answer</summary>
+        - 정지 시간이 최대 10ms를 초과하지 않음, Heap의 크기가 증가하더라도 정지 시간이 증가하지 않음, 8MB~16TB에 이르는 다양한 범위의 Heap 처리 가능 <br/>
+        - 위 세가지의 목표를 충족하기 위해 설계된 확장 가능하고 낮은 지연율(low latency)을 가진 GC <br/>
+        - ZGC는 ZPages라는 G1 GC의 Region과 비슷한 영역의 개념을 사용하지만, Region은 고정된 크기인 것에 반해 ZPages는 크기가 2MB의 배수로 동적으로 생성 및 삭제될 수 있음 <br/>
+        - Young 영역에서 GC가 수행되면 Stop-The-World 현상이 발생하며, 이 시간을 줄이기 위해 멀티 스레드로 GC를 수행함 <br/>
+        </details>
+        
+      - Epsilon GC (11)
+        <details>
+        <summary>Answer</summary>
+        - Epsilon은 메모리 할당은 처리하지만 사용되지 않는 영역에 대해 재활용하지 않음 <br/>
+        - Epsilon의 경우 Java Heap 영역을 모두 소진하게 되면 JVM이 Shut down <br/>
+        - Epsilon의 목적은 제한된 영역의 메모리 할당을 허용함으로써 최대한 latency overhead를 줄이는 것 <br/>
+        </details>
+        
+      - Shenandoah GC (12)
+        <details>
+        <summary>Answer</summary>
+        - low-pause GC라고 불리며 '큰 GC 작업을 적은 횟 수로 수행하는 것 보다 작은 GC 작업을 여러번 수행하는 게 낫다'라는 컨셉 <br/>
+        - Shenandoah는 ZGC와 비슷하게 대량의 메모리 처리에 우수한 퍼포먼스를 내지만 좀 더 많은 옵션을 제공한다는 장점 <br/>
+        - Shenandoah는 OpenJdk 12에 등장하여 jdk11, jdk8까지 backporting 지원 <br/>
+        </details>      
+  
     - JVM 기반의 Tuning (g1gc)
       - Thread Dump
         <details>
@@ -140,13 +194,31 @@
         - Thread 이름, 식별자, 우선순위(prio), Thread가 점유하는 메모리 주소를 의미하는 Thread ID(tid), OS에서 관리하는 Thread ID (nid), Thread 상태 (NEW | RUNNABLE | BLOCKED | WAITING | TIMED_WAITING | TERMINATED) 등의 정보를 확인 가능 <br/>
         - RUNNABLE 상태면서 지속시간이 긴 Thread가 없는지, Lock 처리가 제대로 되지 않아 문제가 발생하고 있지는 않은지 확인
         </details>
+        
       - Heap Dump
         <details>
         <summary>Answer</summary>
         - Heap의 사용량이 순간적으로 증가하면  GC(Garbage Collection)가 과도하게 일어나면서 어플리케이션의 성능이 저해되거나, 심한 경우에는 OOM(Out Of Memory)이 발생하여 어플리케이션이 다운됨 <br/>
         - jmap을 사용하여 Heap Dump를 얻을 수 있음
         </details>
-
+      
+    - Iterable
+      <details>
+      <summary>Answer</summary>
+      - Iterable은 순회할 수 있는 컬렉션을 나타냄 <br/>
+      - Iterable 인터페이스를 implement하면 객체는 for-each loop를 사용할 수 있게 해줌 <br/>
+      - Iterable은 어떠한 iteration 상태 값을 가지지 못함 <br/>
+      - Iterable은 iterator() 메소드가 호출이 될 때마다 Iterator의 새로운 instance를 생성함 <br/>
+      </details>
+      
+    - Iterator
+      <details>
+      <summary>Answer</summary>
+      - Iterator 인터페이스는 다른 객체, 다른 종류의 컬렉션을 순회하게 해줌 <br/>
+      - Iterator 인스턴스는 iteration 상태를 모아둔 것 <br/>
+      - Iterator는 컬렉션 내의 현재 위치를 기억 <br/>
+      </details>
+      
 
 - OOP
   - SOLID
@@ -164,6 +236,7 @@
     &nbsp&nbsp&nbsp * 고수준 모듈은 저수준 모듈의 구현에 의존해서는 안됨 <br/>
     </details>
 
+  
 - Design Pattern
   - Singleton
     <details>
@@ -178,9 +251,18 @@
     <summary>Answer</summary>
     - 같은 문제를 해결하는 여러 알고리즘이 클래스별로 캡슐화되어 있고 이들이 필요할 때 교체할 수 있도록 함으로써 동일한 문제를 다른 알고리즘으로 해결할 수 있게 하는 디자인 패턴 <br/>
     - 행위(Behavioral) 패턴 중 하나로,한 객체가 혼자 수행할 수 없는 작업을 여러 개의 객체로 어떻게 분배하는지, 또 그렇게 하면서도 객체 사이의 결합도를 최소화하는 것에 중점 <br/>
-    - 기존 코드의 변경을 최소화 하면서 기능을 추가할 수 있기 때문에 개방 폐쇄 원칙 (OCP)을 만족함
+    - 기존 코드의 변경을 최소화 하면서 기능을 추가할 수 있기 때문에 개방 폐쇄 원칙 (OCP)을 만족함 <br/>
     </details>
-
+  
+  - Proxy
+    <details>
+    <summary>Answer</summary>
+    - 실제 기능을 수행하는 객체(Real Object) 대신 가상의 객체(Proxy Object)를 사용해 로직의 흐름을 제어하는 디자인 패턴 <br/>
+    - 구조(Structural) 패턴 중 하나로, 원래 하려던 기능을 수행하며 그외의 부가적인 작업(로깅, 인증, 네트워크 통신 등)을 수행 <br/>
+    - 비용이 많이 드는 연산(DB 쿼리, 대용량 텍스트 파일 등)을 실제로 필요한 시점에 수행
+    </details>
+  
+  
 - ORM
   - Hibernate
     <details>
