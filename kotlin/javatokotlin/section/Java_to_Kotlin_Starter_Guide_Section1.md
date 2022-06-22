@@ -58,5 +58,70 @@
   - Java 코드를 읽으며 null 가능성을 확인하고, Kotlin으로 wrapping 해야함
 
 ## 3. 코틀린에서 Type을 다루는 방법
+### 3-1. 기본타입
+- Kotlin은 선언된 기본 값으로 타입을 추론함
+- Java의 기본 타입간 변화는 **암시적으로** 이루어질 수 있음
+  - ex) `int number1 = 5 -> long number2 = number1`
+- Kotlin의 기본 타입간 변화는 **명시적으로** 이루어져야 함
+  - ex) `val number1 : Int = 5 -> val number2 : Long = number1.toLong`
+  - Kotlin은 `to변환타입()`을 사용해야 함
+- kotlin에서 nullable한 경우 처리를 해주어야 함, Safe Call or Elvis
+
+### 3-2. 타입 캐스팅
+- Kotlin의 타입 비교
+  - `value is Type` -> Java의 `instanceof` 
+  - Type이 true인 경우 자동으로 타입 캐스팅이 됨 (스마트캐스팅)
+- Kotlin의 타입 캐스팅
+  - `value as Type` -> Java의 타입 캐스팅 ex) `(Type) value`
+  - nullable 처리는 `value ?as Type` -> `true`인 경우를 제외하고 `null`을 반환
+  - Kotlin은 `is`, `!is`, `as`, `as?` 를 이용해 타입을 확인하고 캐스팅함
+
+### 3-3. Kotlin의 3가지 특이한 타입
+- Any
+  - Java의 Object와 동일한 역할 (모든 객체의 최상위 타입)
+  - 모든 Primitive Type의 최상위 타입
+    - Java의 Object는 Primitive Type의 최상위 타입이 아님
+  - Any 자체로는 null을 포함할 수 없어, null을 포함하고 싶아면 Any?로 표현
+  - Any에 `equals` / `hashCode` / `toString` 존재
+- Unit
+  - Java의 void와 동일한 역할
+  - Java의 void와 다르게 Unit은 그 자체로 타입 인자로 사용 가능
+    - Java에서 void를 Generic에 사용하기 위해선 Void 클래스를 사용
+    - Kotlin은 그냥 Unit을 사용하면 됨
+  - 함수형 프로그래밍에서 Unit은 단 하나의 인스턴스만 갖는 타입을 의미
+    - 즉, Kotlin의 Unit은 실제 존재하는 타입이라는 것을 표현
+- Nothing
+  - Nothing은 함수가 정상적으로 끝나지 않았다는 사실을 표현하는 역할
+    - 무조건 예외를 반환하는 함수 또는 무한 루프 함수 등
+    - ex) `fun fail(msg : String) : Nothing () = throw IllegalArgumentException(msg)`
+
+### 3-4. String Interpolation, String indexing
+- `${변수명}` 사용으로 문자열에 해당 변수의 값을 넣는 것이 가능
+- `""" """` 큰 따옴표 3개를 붙여 쓰면 엔터를 인식하여 긴 문자열을 작성할 수 있음
+- `변수명[index]`로 배열처럼 문자열 인덱스에 해당 하는 char 값을 가져올 수 있음
 
 ## 4. 코틀린에서 연산자를 다루는 방법
+### 4-1. 단항 연산자 / 산술 연산자
+- 단항 연산자, 산술 연산자, 산술대입 연산자 모두 Java와 완전 동일함
+
+### 4-2. 비교 연산자와 동등성, 동일성
+- Kotlin의 비교 연산자는 값을 비교할 때 Java와 완전 동일함
+- Kotlin의 비교 연산자는 객체간의 비교시 자동으로 `compareTo`를 호출함
+- 동등성(Equality) : 두 객체의 값이 같음
+  - Java는 `==` 을 사용
+  - Kotlin은 `===` 을 사용
+- 동일성(Identity) : 두 객체가 완전히 같은 객체임 (주소가 같음)
+  - Java는 `equals` 를 사용
+  - Kotlin은 `==` 을 사용 (`==` 을 사용하면 `equals` 를 호출함)
+
+### 4-3. 논리 연산자 / Kotlin의 특이한 연산자
+- Kotlin의 논리 연산자(`&&,` `||,` `!`)는 Java와 완전 동일하고, Lazy 연산 수행
+- Koltin의 특이한 연산자
+  - `in`, `!in` : 컬렉션이나 범위에 포함되어 있음, 포함되어 있지 않음
+  - `a..b` : a부터 b까지 범위 객체 생성
+  - `a[i]` : a에서 특정 인덱스 i 값을 가져움
+
+### 4-4. 연산자 오버로딩
+- Koltin에서는 객체마다 연산자를 직접 정의할 수 있음
+  - ex) `val money1 = Money(1_000L), val money2 = Money(2_000L), money1 + money2 = 3_000L` 
+  
